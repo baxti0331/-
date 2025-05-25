@@ -1,18 +1,50 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Кликер</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js">
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 200;
+            color: var(--tg-theme-text-color);
+            background: var(--tg-theme-bg-color);
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🖱️ Кликер</h1>
-    <p id="counter">0</p>
-    <button id="clickBtn">Клик!</button>
-  </div>
-  <script src="script.js"></script>
+    <p>Привет! Получиолось!!!</p>
+    <script>
+        const tg = window.Telegram.WebApp;
+        let url = 'ССЫЛКА_НА_YANDEX_FUNCTION';
+        
+        var data = JSON.stringify("ДАННЫЕ_ДЛЯ ОТПРАВКИ");
+
+        tg.MainButton.show();
+        tg.MainButton.setText("Оплатить");
+        tg.MainButton.onClick(() => {
+            console.log("start");
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("X-Custom-Info", "getOpenInvoiceUrl");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    tg.openInvoice(xhr.responseText);
+                }
+            };
+            xhr.send(data);
+        });
+    </script>
 </body>
 </html>
