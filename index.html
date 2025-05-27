@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Меню ресторана OSON</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ресторан OSON - Меню</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-  <header>
-    <h1>Ресторан OSON</h1>
-    <button id="cart-button">Корзина (0)</button>
-  </header>
-  <main>
-    <aside id="categories">
-      <!-- Категории будут добавлены динамически -->
-    </aside>
-    <section id="dishes">
-      <!-- Блюда будут отображаться здесь -->
-    </section>
-  </main>
-  <div id="cart-modal" class="modal hidden">
-    <!-- Модальное окно корзины -->
-  </div>
-  <script src="script.js"></script>
+    <header>
+        <div class="logo">Ресторан OSON</div>
+        <div class="cart-btn" onclick="window.location.href='/cart'">
+            Корзина (<span id="cart-count">0</span>)
+        </div>
+    </header>
+
+    <main>
+        <div class="categories">
+            <h2>Категории</h2>
+            <ul>
+                {% for category in categories %}
+                <li>
+                    <button class="category-btn" onclick="showCategory('{{ category }}')">{{ category }}</button>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="dishes">
+            <h2 id="current-category">Закуски</h2>
+            <div id="dishes-container" class="dishes-container">
+                <!-- Блюда будут загружаться тут динамически -->
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
